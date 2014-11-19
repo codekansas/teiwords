@@ -3,6 +3,8 @@ from localsettings import *
 
 from xml.etree import ElementTree as ET
 
+from collections import Counter
+
 import nltk
 import os
 import sys
@@ -77,8 +79,9 @@ def analyze(data):
     # Actual text analysis
     tokens = nltk.word_tokenize(text)
     pt = nltk.pos_tag(tokens)
-    # pt = [word for (word, tag) in pt if tag == 'NOUN']
-    return pt
+    pt = [word for (word, tag) in pt if tag == 'NNP']
+    c = Counter(pt)
+    return c.most_common(25)
     
 if __name__ == "__main__":
     ''' Boilerplate for running the script '''
